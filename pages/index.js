@@ -1,65 +1,62 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import React, {useContext, useEffect} from "react";
+import Link from "next/link";
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import AuthContext from "../context/auth/authContext";
+import Dropzone from "../components/Dropzone";
+import AppContext from "../context/app/appContext";
+import Alert from "../components/Alert";
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+const Index = () => {
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+    const {getAuthenticatedUser, token} = useContext(AuthContext);
+    const {uploadMessage, url} = useContext(AppContext);
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+    useEffect(() => {
+        if (token) {
+            getAuthenticatedUser();
+        }
+    }, []);
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+    return (
+        <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
+            {url ?
+                <div className="text-center">
+                    <p className="text-3xl font-bold mb-4 uppercase">Share with your friends</p>
+                    <button
+                        type="button"
+                        className="text-4xl text-white bg-red-500 rounded p-2 inline"
+                        onClick={() => navigator.clipboard.writeText(`${process.env.frontendURL}/links/${url}`)}
+                    >{`${process.env.frontendURL}/links/${url}`}</button>
+                </div>
+                :
+                <>
+                    {uploadMessage && <Alert message={uploadMessage}/>}
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+                    <div className="lg:flex lg:flex-no-wrap md:shadow-lg p-5 bg-white rounded-lg py-10">
+                        <div className="lg:w-1/2">
+                            <Dropzone/>
+                        </div>
+                        <div className="lg:w-1/2 flex-1 mb-3 mx-2 mt-4 lg:mt-0">
+                            <h2 className="text-4xl font-sans font-bold text-gray-800 my-4">
+                                Share files easily and securely
+                            </h2>
+                            <p className="text-lg leading-loose">
+                                <span className="text-red-500 font-bold">ReactNodeSend</span> lets you share files with
+                                end-to-end encryption and a link that automatically expires. So you can keep what you
+                                share private and make sure your stuff doesn't stay online forever.
+                            </p>
+                            <Link href="/signin">
+                                <a className="text-red-500 font-bold text-lg hover:text-red-700">
+                                    Sign in for more benefits
+                                </a>
+                            </Link>
+                        </div>
+                    </div>
+                </>
+            }
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    );
 }
+
+export default Index;
+

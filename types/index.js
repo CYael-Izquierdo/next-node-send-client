@@ -1,0 +1,28 @@
+export const AUTHENTICATED_USER = "AUTHENTICATED_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
+
+// Sign in actions
+export const SIGNIN_SUCCESSFUL = "SIGNIN_SUCCESSFUL";
+export const SIGNIN_ERROR = "SIGNIN_ERROR";
+
+// Log in actions
+export const LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
+export const LOGIN_ERROR = "LOGIN_ERROR";
+
+export const UPLOAD_FILE = "UPLOAD_FILE";
+export const UPLOAD_FILE_SUCCESS = "UPLOAD_FILE_SUCCESS";
+export const UPLOAD_FILE_ERROR = "UPLOAD_FILE_ERROR";
+
+export const REMOVE_UPLOADED_FILE = "REMOVE_UPLOADED_FILE";
+
+export const CREATE_LINK = "CREATE_LINK";
+export const CREATE_LINK_SUCCESS = "CREATE_LINK_SUCCESS";
+export const CREATE_LINK_ERROR = "CREATE_LINK_ERROR";
+
+export const SHOW_ALERT = "SHOW_ALERT";
+export const CLEAN_ALERT = "CLEAN_ALERT";
+
+export const CLEAN_STATE = "CLEAN_STATE";
+
+export const ADD_PASSWORD = "ADD_PASSWORD";
+export const ADD_DOWNLOADS = "ADD_DOWNLOADS"
